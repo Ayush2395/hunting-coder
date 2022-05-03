@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import Menubar from "./components/Menubar";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import BlogList from "./components/BlogList";
+import Admin from "./components/Admin";
+import AppState from "./context/AppState";
+import { useEffect } from "react";
+import Blog from "./pages/Blog";
 
-function App() {
+export default function App() {
+  useEffect(() => {
+    googleAds();
+  }, []);
+
+  function googleAds() {
+    const script = document.createElement("script");
+    script.src =
+      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6095023723120057";
+    script.crossOrigin = "anonymous";
+    document.body.append(script);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AppState>
+        <Router>
+          <Menubar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blogs" element={<BlogList />} />
+            <Route path="/blogs/:id" element={<Blog />} />
+            <Route path="/admin" element={<Admin />} />
+          </Routes>
+        </Router>
+      </AppState>
+    </>
   );
 }
-
-export default App;
