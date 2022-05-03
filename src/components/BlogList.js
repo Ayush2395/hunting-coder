@@ -20,32 +20,34 @@ export default function BlogList() {
 
   return (
     <>
-      <Container className="my-4">
-        <Row>
-          {blogs.map((item) => {
-            return (
-              <Col
-                xs="4"
-                className="justify-content-center align-content-center mb-5"
-                key={item.id}
-              >
-                <Flip left>
-                  <Card style={{ width: "18rem" }}>
-                    <Card.Body>
-                      <Card.Title>{item.title}</Card.Title>
-                      <Card.Text>{item.content}</Card.Text>
-                      <Card.Text>{item.author}</Card.Text>
-                      <Card.Link as={Link} to={`blogs/${item.id}`}>
-                        Read More
-                      </Card.Link>
-                    </Card.Body>
-                  </Card>
-                </Flip>
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
+      <section className="section">
+        <Container className="my-4">
+          <Row className="justify-content-md-center">
+            {blogs.map((item) => {
+              return (
+                <Col
+                  xs="md"
+                  className="justify-content-center align-content-center mb-5"
+                  key={item.id}
+                >
+                  <Flip left>
+                    <Card style={{ width: "auto" }}>
+                      <Card.Body>
+                        <Card.Title>{item.title}</Card.Title>
+                        <Card.Text>{item.content.substr(0, 30)}...</Card.Text>
+                        <Card.Text>{item.author}</Card.Text>
+                        <Card.Link as={Link} to={`${item.id}`}>
+                          Read More
+                        </Card.Link>
+                      </Card.Body>
+                    </Card>
+                  </Flip>
+                </Col>
+              );
+            })}
+          </Row>
+        </Container>
+      </section>
     </>
   );
 }
